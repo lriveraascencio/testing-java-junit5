@@ -2,6 +2,10 @@ package guru.springframework.sfgpetclinic.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+
+import java.time.Duration;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,6 +35,22 @@ class IndexControllerTest {
 			controller.oupsHandler();
 		});
 		//assertTrue("notimplemented".equals(controller.oupsHandler()),"this is some expensive " + "Message to build" + "for my test");
+	}
+	
+	@Test
+	void testTimeOut() {
+		assertTimeout(Duration.ofMillis(100), () -> {
+			Thread.sleep(5000);
+			System.out.println("I got here");
+		});
+	}
+	
+	@Test
+	void testTimeOutPrempt() {
+		assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
+			Thread.sleep(5000);
+			System.out.println("I got acahere");
+		});
 	}
 	
 	
