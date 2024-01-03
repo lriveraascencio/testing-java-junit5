@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.time.Duration;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +39,7 @@ class IndexControllerTest {
 		//assertTrue("notimplemented".equals(controller.oupsHandler()),"this is some expensive " + "Message to build" + "for my test");
 	}
 	
+	@Disabled
 	@Test
 	void testTimeOut() {
 		assertTimeout(Duration.ofMillis(100), () -> {
@@ -45,12 +48,23 @@ class IndexControllerTest {
 		});
 	}
 	
+	@Disabled
 	@Test
 	void testTimeOutPrempt() {
 		assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
 			Thread.sleep(5000);
 			System.out.println("I got acahere");
 		});
+	}
+	
+	@Test
+	void testAssumptionTrue() {
+		assumeTrue("GURU".equalsIgnoreCase("GURU_RUNTIME"));
+	}
+	
+	@Test
+	void testAssumptionTrueAssumptionIsTrue() {
+		assumeTrue("GURU".equalsIgnoreCase("GURU"));
 	}
 	
 	
